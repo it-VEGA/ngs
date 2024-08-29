@@ -5,3 +5,6 @@ def index(request):
 
 def news(request):
     return render(request, 'home/news.html')
+
+def tests(request):
+    return render(request, 'home/test.html')

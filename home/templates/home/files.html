@@ -1,0 +1,7 @@
+<h1>Файлы</h1>
+
+{% for el in files %}
+<ul>
+    <li><a href="{{el}}" download>{{ el }}</a></li>
+</ul>
+{% endfor %}

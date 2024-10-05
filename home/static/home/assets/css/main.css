@@ -13,7 +13,7 @@ Version: 1.0.0
   --body: #fff;
   --black: #000;
   --white: #fff;
-  --theme: #078275;
+  --theme: crimson;
   --theme2: #70A6B1;
   --header: #385469;
   --text: #5C707E;
@@ -21,7 +21,7 @@ Version: 1.0.0
   --border: #E5E5E5;
   --border2: #242449;
   --border3: #5262FF;
-  --bg: #F4EEE5;
+  --bg: #fff;
   --bg2: #EFF5F6;
   --bg3: #70A6B1;
   --box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.06);
@@ -3407,7 +3407,7 @@ span {
   gap: 40px;
 }
 .header-top-wrapper .contact-list li {
-  color: var(--header);
+  color: var(--white);
   font-weight: 500;
 }
 .header-top-wrapper .contact-list li i {
@@ -3421,11 +3421,11 @@ span {
   gap: 20px;
 }
 .header-top-wrapper .social-icon span {
-  color: var(--header);
+  color: var(--white);
   font-weight: 500;
 }
 .header-top-wrapper .social-icon a {
-  color: var(--header);
+  color: var(--white);
 }
 .header-top-wrapper .social-icon a:hover {
   color: var(--theme);
@@ -3713,6 +3713,15 @@ span {
   display: flex;
   align-items: center;
   gap: 60px;
+}
+.header-logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.header-logo img {
+  border: 1px solid black;
+  border-radius: 7px;
+  border-color: black;
 }
 @media (max-width: 1899px) {
   .header-1 .header-main .header-left {

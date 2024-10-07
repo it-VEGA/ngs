@@ -1,0 +1,18 @@
+{% extends 'online_test/base.html' %}
+
+{% block content %}
+Выберите Предмет
+<ul>
+     {% for test in data.tests %}
+            <li>{{ test.question }}
+                <ul>
+                    {% for option in test.options %}
+                    <input type="radio" id="contactChoice1" name="{{ test.id }}" value="{{ option }}" />
+                    <label for="{{ test.id }}">{{ option }}</label>
+                    <!-- <input type="radio" value="{{ option }}"> -->
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+</ul>
+{% endblock %}

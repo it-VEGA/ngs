@@ -5,5 +5,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.index),
-    path('item',views.item)
+    path('class',views.classes),
+    path('5',views.items),
+    path('<str:pk>/',views.item_detail)
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

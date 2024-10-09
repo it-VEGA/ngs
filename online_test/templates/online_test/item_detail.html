@@ -1,0 +1,79 @@
+{% extends 'online_test/base.html' %}
+
+{% block content %}
+<form id="quiz-form" action="item" method="post">
+    {% csrf_token %}
+    {% for test in data.tests %}
+    <div class="alert alert-primary mt-3" role="alert">
+        {{ test.question }}
+    </div>
+
+    <ol class="list-group list-group-numbered">
+        {% for option in test.options %}
+        <li class="list-group-item">
+            <input type="radio" id="Choice" name="{{ test.id }}" value="{{ option }}" />
+            <label for="Choice">{{ option }}</label>
+        </li>
+        {% endfor %}
+    </ol>
+    {% endfor %}
+    <!-- Button trigger modal -->
+  <button type="submit" class="btn btn-primary w-100 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Проверить
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ваш результат</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div id="result" class="mt-4"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-primary">Скачать</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!-- <input type="submit" class="btn btn-primary mt-4 w-100" value="Проверить"> -->
+</form>
+
+
+
+
+
+{{ data.tests|json_script:"test-data" }}
+
+<script>
+   
+    const tests = JSON.parse(document.getElementById('test-data').textContent);
+
+    
+    const correctAnswers = {};
+    tests.forEach(test => {
+        correctAnswers[test.id] = test.correct_answer;
+    });
+
+    document.getElementById('quiz-form').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        let score = 0; 
+
+      
+        for (let questionId in correctAnswers) {
+            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+            if (selectedOption && selectedOption.value === correctAnswers[questionId]) {
+                score++;
+            }
+        }
+
+        document.getElementById('result').innerHTML = `Вы ответили правильно на ${score} из ${Object.keys(correctAnswers).length} вопросов.`;
+    });
+</script>
+{% endblock %}

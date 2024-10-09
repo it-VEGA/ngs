@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +10,30 @@
 </head>
 <style>
     .bg-primary {
-        background-color: #490d59!important;
+        background-color: #490d59 !important;
     }
+
     .card {
         border-color: #490d59;
     }
+
+    .btn-outline-primary {
+        color: #000;
+        border-color: #490d59;
+    }
+
+    .btn-outline-primary:hover {
+        color: #fff;
+        background-color: #490d59;
+        border-color: #490d59;
+    }
+    .list-group-item:hover {
+        background-color: #490d59;
+        color: #fff;
+        transition: all .2s;
+    }
 </style>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-xl">
@@ -23,17 +42,12 @@
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- <div class="collapse navbar-collapse" id="navbarText">
-                <span class="navbar-text">
-                    Предмет - Ф.И.О учителя
-                </span>
-            </div> -->
         </div>
     </nav>
     <main class="container">
         <div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="38" fill="currentColor" class="bi bi-card-checklist"
-                viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="38" fill="currentColor"
+                class="bi bi-card-checklist" viewBox="0 0 16 16">
                 <path
                     d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
                 <path
@@ -48,8 +62,8 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

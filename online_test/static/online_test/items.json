@@ -1,0 +1,79 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "name": "Английский язык",
+            "link": "english"
+        },
+        {
+            "id": 2,
+            "name": "Информатика",
+            "link": "informatika"
+        },
+        {
+            "id": 3,
+            "name": "Economics",
+            "link": "economics"
+        },
+        {
+            "id": 4,
+            "name": "Science",
+            "link": "science"
+        },
+        {
+            "id": 5,
+            "name": "История",
+            "link": "history"
+        },
+        {
+            "id": 6,
+            "name": "Корейский язык",
+            "link": "korean"
+        },
+        {
+            "id": 7,
+            "name": "Литература",
+            "link": "literature"
+        },
+        {
+            "id": 8,
+            "name": "Математика",
+            "link": "math"
+        },
+        {
+            "id": 9,
+            "name": "Русский язык",
+            "link": "russ"
+        },
+        {
+            "id": 10,
+            "name": "Узбекский язык",
+            "link": "uzb"
+        },
+        {
+            "id": 11,
+            "name": "Французский язык",
+            "link": "franch"
+        },
+        {
+            "id": 12,
+            "name": "ИЗО",
+            "link": "picture"
+        },
+        {
+            "id": 13,
+            "name": "Алгебра",
+            "link": "algebra"
+        },
+        {
+            "id": 14,
+            "name": "Геометрия",
+            "link": "geometry"
+        },
+        {
+            "id": 15,
+            "name": "Химия",
+            "link": "chemical"
+        }
+    ]
+}

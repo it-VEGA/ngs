@@ -1,66 +1,13 @@
 {% extends 'online_test/base.html' %}
 
 {% block content %}
+{% for item in data %}
 <div class="list-group">
-    <a href="english" class="list-group-item list-group-item-action" aria-current="true">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Английский язык</h5>
-      </div>
-    </a>
-    <a href="inforamtika" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Информатика</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Economics</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Science</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">История</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Корейский язык</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Литература</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Математика</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Русский язык</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Узбекский язык</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Французский язык</h5>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">ИЗО</h5>
-        </div>
-      </a>
-  </div>
+  <a href="{{item.link}}" class="list-group-item list-group-item-action" aria-current="true">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{item.name}}</h5>
+    </div>
+  </a>
+</div>
+{% endfor %}
 {% endblock %}

@@ -2,78 +2,139 @@
 
 {% block content %}
 <form id="quiz-form" action="item" method="post">
-    {% csrf_token %}
-    {% for test in data.tests %}
-    <div class="alert alert-primary mt-3" role="alert">
-        {{ test.question }}
-    </div>
+  {% csrf_token %}
+  {% for test in data.tests %}
+  <div class="alert alert-primary mt-3" role="alert">
+    {{ test.question }}
+  </div>
 
-    <ol class="list-group list-group-numbered">
-        {% for option in test.options %}
-        <li class="list-group-item">
-            <input type="radio" id="Choice" name="{{ test.id }}" value="{{ option }}" />
-            <label for="Choice">{{ option }}</label>
-        </li>
-        {% endfor %}
-    </ol>
+  <ol class="list-group list-group-numbered">
+    {% for option in test.options %}
+    <li class="list-group-item">
+      <input type="radio" id="Choice" name="{{ test.id }}" value="{{ option }}" />
+      <label for="Choice">{{ option }}</label>
+    </li>
     {% endfor %}
-    <!-- Button trigger modal -->
-  <button type="submit" class="btn btn-primary w-100 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  </ol>
+  {% endfor %}
+  <!-- Button trigger modal -->
+  <button type="submit" class="btn btn-primary w-100 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    id="res_btn">
     Проверить
   </button>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ваш результат</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
         </div>
         <div class="modal-body">
-
-            <div id="result" class="mt-4"></div>
+          <div id="result" class="mt-4 fs-5"></div>
+          <canvas id="resultChart" width="400" height="400"></canvas>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-          <button type="button" class="btn btn-primary">Скачать</button>
+          <button type="button" class="w-100 btn-secondary" data-bs-dismiss="modal" id="close">Закрыть</button>
         </div>
       </div>
     </div>
   </div>
-  
-    <!-- <input type="submit" class="btn btn-primary mt-4 w-100" value="Проверить"> -->
 </form>
-
-
-
-
 
 {{ data.tests|json_script:"test-data" }}
 
-<script>
-   
-    const tests = JSON.parse(document.getElementById('test-data').textContent);
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-    
+  <script>
+    const res_btn = document.getElementById('res_btn')
+    const close = document.getElementById('close')
+    close.addEventListener("click", function () {
+      res_btn.disabled = true;
+    })
+    const tests = JSON.parse(document.getElementById('test-data').textContent);
+    window.addEventListener("beforeunload", function(event) {
+      var checkboxes = document.querySelectorAll("input");
+            // Очищаем их состояние
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+        });
     const correctAnswers = {};
     tests.forEach(test => {
-        correctAnswers[test.id] = test.correct_answer;
+      correctAnswers[test.id] = test.correct_answer;
     });
 
-    document.getElementById('quiz-form').addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        let score = 0; 
+    function calculateGrade(score, totalQuestions) {
+      const percentage = (score / totalQuestions) * 100;
 
-      
-        for (let questionId in correctAnswers) {
-            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-            if (selectedOption && selectedOption.value === correctAnswers[questionId]) {
-                score++;
-            }
+      if (percentage >= 90) {
+        return 5; // Отлично
+      } else if (percentage >= 75) {
+        return 4; // Хорошо
+      } else if (percentage >= 50) {
+        return 3; // Удовлетворительно
+      } else if (percentage >= 30) {
+        return 2; // Плохо
+      } else {
+        return 1; // Очень плохо
+      }
+    }
+
+    document.getElementById('quiz-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      let score = 0;
+
+      for (let questionId in correctAnswers) {
+        const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+        if (selectedOption && selectedOption.value === correctAnswers[questionId]) {
+          score++;
         }
+      }
 
-        document.getElementById('result').innerHTML = `Вы ответили правильно на ${score} из ${Object.keys(correctAnswers).length} вопросов.`;
+      const totalQuestions = Object.keys(correctAnswers).length;
+      const grade = calculateGrade(score, totalQuestions);
+
+      // Обновляем текст результата
+      document.getElementById('result').innerHTML = `
+            Вы ответили правильно на ${score} из ${totalQuestions} вопросов.<br>
+            Ваша оценка: ${grade}.
+        `;
+
+      // Рисуем диаграмму с результатами
+      const ctx = document.getElementById('resultChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Правильные ответы', 'Неправильные ответы'],
+          datasets: [{
+            data: [score, totalQuestions - score],
+            backgroundColor: ['#0d6efd', '#dc3545'],
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Результаты теста'
+            },
+            datalabels: {
+              color: '#fff',
+              font: {
+                weight: 'bold',
+                size: 24
+              },
+              formatter: (value) => `${value}` // Отображение числовых значений на диаграмме
+            }
+          }
+        },
+        plugins: [ChartDataLabels]
+      });
     });
-</script>
-{% endblock %}
+  </script>
+  {% endblock %}
